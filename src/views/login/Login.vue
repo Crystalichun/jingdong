@@ -3,29 +3,71 @@
     <img class="wrapper__img" src="http://www.dell-lee.com/imgs/vue3/user.png"/>
     <div class="wrapper__input">
       <input class="wrapper__input__content"
+             v-model="data.username"
              placeholder="用户名"/>
     </div>
     <div class="wrapper__input">
       <input
             type="password"
+            v-model="data.password"
             class="wrapper__input__content"
             placeholder="请输入密码"/>
     </div>
     <div class="wrapper__login-button" @click="handleLogin">登录</div>
     <div class="wrapper__link">
-      <div class="wrapper__link-register">立即注册</div> | <div class="wrapper__link-password">忘记密码</div>
+      <div class="wrapper__link-register" @click="handleRegister">立即注册</div> | <div class="wrapper__link-password">忘记密码</div>
     </div>
+    <Toast v-if="data.showToast" :message="data.toastMessage"/>
   </div>
 </template>
 
 <script>
+import { post } from '@/utils/request'
+import { useRouter } from 'vue-router'
+import { reactive } from 'vue'
+import Toast from '@/components/Toast'
+
 export default {
   name: 'Login',
+  components: { Toast },
   setup () {
-    const handleLogin = () => {
-      console.log(1)
+    const data = reactive({
+      username: '',
+      password: '',
+      showToast: false,
+      toastMessage: ''
+    })
+    const router = useRouter()
+
+    const showToast = (msg) => {
+      data.showToast = true
+      data.toastMessage = '登陆失败'
+      setTimeout(() => {
+        data.showToast = false
+        data.toastMessage = ''
+      }, 2000)
     }
-    return { handleLogin }
+
+    const handleRegister = () => {
+      router.push('Register')
+    }
+    const handleLogin = async () => {
+      try {
+        const result = await post('/api/user/login', {
+          username: data.username,
+          password: data.password
+        })
+        if (result?.errno === 0) {
+          localStorage.isLogin = true
+          router.push({ name: 'Home' })
+        } else {
+          showToast('登陆失败')
+        }
+      } catch (e) {
+        showToast('请求失败')
+      }
+    }
+    return { handleLogin, handleRegister, data }
   }
 }
 </script>
