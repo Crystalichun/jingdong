@@ -50,8 +50,6 @@ const categories = [
   { name: '秒杀', tab: 'seckill' },
   { name: '新鲜水果', tab: 'fruit' }
 ]
-const route = useRoute()
-const shopId = route.params.id
 
 const useTabEffect = () => {
   const currentTab = ref(categories[0].tab)
@@ -65,7 +63,7 @@ const useTabEffect = () => {
   }
 }
 
-const useCurrentListEffect = (currentTab) => {
+const useCurrentListEffect = (currentTab, shopId) => {
   const content = reactive({ list: [] })
   const getContentData = async () => {
     const result = await get(`/api/shop/${shopId}/products`, {
@@ -85,8 +83,10 @@ const useCurrentListEffect = (currentTab) => {
 export default {
   name: 'ShopContent',
   setup () {
+    const route = useRoute()
+    const shopId = route.params.id
     const { currentTab, categories, handleTabClick } = useTabEffect()
-    const { list } = useCurrentListEffect(currentTab)
+    const { list } = useCurrentListEffect(currentTab, shopId)
     const { cartList, changeCartItemInfo } = useCommonCartEffect()
     return {
       shopId,
