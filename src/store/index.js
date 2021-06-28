@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    // cartList: {
+    cartList: {
     //   shopId: {
     //     productId: {
     //       _id: '1',
@@ -14,9 +14,23 @@ export default createStore({
     //       count: 2
     //     }
     //   }
-    // }
+    }
   },
   mutations: {
+    changeCartItemInfo (state, payload) {
+      const { shopId, productInfo, num } = payload
+      const shopInfo = state.cartList?.[shopId] || {}
+      const productId = productInfo._id
+      let product = shopInfo[productId]
+      if (!product) {
+        productInfo.count = 0
+        product = productInfo
+      }
+      product.count += num
+      if (product.count < 0) { product.count = 0 }
+      shopInfo[productId] = product
+      state.cartList[shopId] = shopInfo
+    }
   },
   actions: {
   },
