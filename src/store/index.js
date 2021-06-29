@@ -1,33 +1,31 @@
 import { createStore } from 'vuex'
 
+// shopId: {
+//   shopName: '',
+//   productList: {
+//     productId: {
+//       _id: '1',
+//       name: '番茄250g/份',
+//       imgUrl: 'http://www.dell-lee.com/imgs/vue3/tomato.png',
+//       sales: 10,
+//       price: 33.6,
+//       oldPrice: 39.6,
+//       count: 2
+//     }
+//   }
+// }
 const setLocalCartList = (state) => {
-  const { cartList } = this.state
-  const cartListString = JSON.stringify(cartList)
-  localStorage.cartList = cartListString
+  const { cartList } = state
+  localStorage.cartList = JSON.stringify(cartList)
 }
 
-const getLocaCartList = () => {
-  // { shopId: {shopName:'', productList:{ productId: {} }}}
+const getLocalCartList = () => {
   return JSON.parse(localStorage.cartList) || {}
 }
 
 export default createStore({
-  // shopId: {
-  //   shopName: '',
-  //   productList: {
-  //     productId: {
-  //       _id: '1',
-  //       name: '番茄250g/份',
-  //       imgUrl: 'http://www.dell-lee.com/imgs/vue3/tomato.png',
-  //       sales: 10,
-  //       price: 33.6,
-  //       oldPrice: 39.6,
-  //       count: 2
-  //     }
-  //   }
-  // }
   state: {
-    cartList: getLocaCartList()
+    cartList: getLocalCartList()
   },
   mutations: {
     changeCartItemInfo (state, payload) {
