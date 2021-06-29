@@ -27,11 +27,11 @@
           <div class="product__number">
             <span
               class="product__number__minus"
-              @click="() => changeCartItemInfo(shopId, item, -1)">-</span>
-            {{cartList?.[shopId]?.[item._id]?.count || 0}}
+              @click="() => changeCartItem(shopId, shopName, item, -1)">-</span>
+            {{getProductCartCount(shopId, item._id)}}
             <span
               class="product__number__plus"
-              @click="() => changeCartItemInfo(shopId, item, 1)"
+              @click="() => changeCartItem(shopId, shopName, item, 1)"
             >+</span>
           </div>
         </div>
@@ -42,6 +42,7 @@
 <script>
 import { ref, reactive, toRefs, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import { get } from '@/utils/request'
 import { useCommonCartEffect } from './commonCartEffect.js'
 
@@ -80,22 +81,43 @@ const useCurrentListEffect = (currentTab, shopId) => {
   return { list }
 }
 
+const useCartEffect = () => {
+  const store = useStore()
+  const { cartList, changeCartItemInfo } = useCommonCartEffect()
+
+  const getProductCartCount = (shopId, productId) => {
+    return cartList?.[shopId]?.productList?.[productId]?.count || 0
+  }
+
+  const changeShopName = (shopId, shopName) => {
+    store.commit('changeShopName', { shopId, shopName })
+  }
+
+  const changeCartItem = (shopId, shopName, product, num) => {
+    changeCartItemInfo(shopId, product, num)
+    changeShopName(shopId, shopName)
+  }
+  return { cartList, changeCartItem, getProductCartCount }
+}
+
 export default {
   name: 'ShopContent',
+  props: ['shopName'],
   setup () {
     const route = useRoute()
     const shopId = route.params.id
     const { currentTab, categories, handleTabClick } = useTabEffect()
     const { list } = useCurrentListEffect(currentTab, shopId)
-    const { cartList, changeCartItemInfo } = useCommonCartEffect()
+    const { cartList, changeCartItem, getProductCartCount } = useCartEffect()
     return {
       shopId,
       cartList,
-      changeCartItemInfo,
       list,
       currentTab,
       categories,
-      handleTabClick
+      changeCartItem,
+      handleTabClick,
+      getProductCartCount
     }
   }
 }
