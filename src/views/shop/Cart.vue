@@ -62,16 +62,18 @@
         总计：<span class="check__info__price">&yen; {{calculations.totalPrice}}</span>
       </div>
       <div class="check__btn">
-        去结算
+        <router-link :to="{path: `/orderConfirmation/${shopId}`}">
+          去结算
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useCommonCartEffect } from './commonCartEffect.js'
+import { useCommonCartEffect } from '@/effects/commonCartEffect'
 import { useStore } from 'vuex'
 
 const toggleCartEffect = () => {
@@ -84,28 +86,7 @@ const toggleCartEffect = () => {
 
 const useCartEffect = (shopId) => {
   const store = useStore()
-  const { cartList, changeCartItemInfo } = useCommonCartEffect()
-
-  const productList = computed(() => {
-    return cartList?.[shopId].productList || []
-  })
-
-  const calculations = computed(() => {
-    const productList = cartList?.[shopId]?.productList || []
-    const result = { total: 0, totalPrice: 0, allChecked: true }
-    if (productList) {
-      for (const key in productList) {
-        const product = productList[key]
-        result.total += product.count
-        result.totalPrice += (product.count * product.price)
-        if (product.count > 0 && !product.check) {
-          result.allChecked = false
-        }
-      }
-    }
-    result.totalPrice = result.totalPrice.toFixed(2)
-    return result
-  })
+  const { calculations, productList, changeCartItemInfo } = useCommonCartEffect(shopId)
 
   const changeCartItemChecked = (shopId, productId) => {
     store.commit('changeCartItemChecked', { shopId, productId })
@@ -221,6 +202,10 @@ export default {
     background-color: #4FB0F9;
     text-align: center;
     font-size: .14rem;
+    a {
+      color: $bgColor;
+      text-decoration: none;
+    }
   }
 }
 .product{
