@@ -97,7 +97,7 @@ export default {
     position: relative;
     padding-top: .26rem;
     line-height: .24rem;
-    color: #FFF;
+    color: $bgColor;
     text-align: center;
     font-size: .16rem;
     &__back {
@@ -109,10 +109,10 @@ export default {
   &__receiver {
     position: relative;
     margin: .22rem .18rem .16rem .18rem;
-    background: #FFFFFF;
+    background: $bgColor;
     border-radius: .04rem;
     max-height: 1.11rem;
-    color: #333;
+    color: $content-fontcolor;
     padding: .16rem;
     &__title {
       line-height: .22rem;
@@ -125,7 +125,7 @@ export default {
     }
     &__info {
       font-size: .12rem;
-      color: #666;
+      color: $medium-fontColor;
       line-height: .18rem;
       &__name {
         margin-right: .06rem;
@@ -136,7 +136,7 @@ export default {
       position: absolute;
       right: .16rem;
       top: .5rem;
-      color: #666;
+      color: $content-fontcolor;
       font-size: .2rem;
     }
   }
@@ -144,7 +144,7 @@ export default {
 
 .products{
   margin: 0 .18rem;
-  background: #FFF;
+  background: $bgColor;
   padding: .16rem;
   &__wrapper {
     overflow-y: scroll;
@@ -156,12 +156,12 @@ export default {
     top: 2.49rem;
   }
   &__list {
-    background: #FFF;
+    background: $bgColor;
     padding: 0 .16rem;
   }
   &__title {
     font-size: .16rem;
-    color: #333;
+    color: $content-fontcolor;
     line-height: .22rem;
   }
   &__item {
@@ -197,7 +197,7 @@ export default {
     &__total {
       flex: 1;
       text-align: right;
-      color: #000
+      color: $dark-fontColor
     }
   }
 }
@@ -210,17 +210,17 @@ export default {
   display: flex;
   height: .49rem;
   line-height: .49rem;
-  background: #FFF;
+  background: $bgColor;
   &__price {
     flex: 1;
     text-indent: .24rem;
     font-size: .14rem;
-    color: #333;
+    color: $content-fontcolor;
   }
   &__btn {
     width: .98rem;
     background: #4FB0F9;
-    color: #fff;
+    color: $bgColor;
     text-align: center;
     font-size: .14rem;
   }

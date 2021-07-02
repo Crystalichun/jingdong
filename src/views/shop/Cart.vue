@@ -178,7 +178,7 @@ export default {
       border-radius: 0.1rem;
       font-size: 0.12rem;
       text-align: center;
-      color: #FFF;
+      color: $bgColor;
       left: 0.46rem;
       top: 0.04rem;
       padding: .02rem;

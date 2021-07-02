@@ -143,7 +143,7 @@ export default {
     line-height: .4rem;
     text-align: center;
     font-size: 14px;
-    color: #333;
+    color: $content-fontcolor;
     &--active {
       background: $bgColor;
     }
