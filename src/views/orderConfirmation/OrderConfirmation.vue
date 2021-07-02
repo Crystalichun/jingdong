@@ -22,28 +22,30 @@
       <div class="products__title">
         {{ shopName }}
       </div>
-      <div class="products__list">
-        <template
-          v-for="item in productList"
-          :key="item._id"
-        >
-          <div v-if="item.count > 0" class="products__item">
-            <img class="products__item__img" :src="item.imgUrl"/>
-            <div class="products__item__detail">
-              <h4 class="products__item__title">{{ item.name }}</h4>
-              <p class="products__item__price">
+      <div class="products__wrapper">
+        <div class="products__list">
+          <template
+            v-for="item in productList"
+            :key="item._id"
+          >
+            <div v-if="item.count > 0" class="products__item">
+              <img class="products__item__img" :src="item.imgUrl"/>
+              <div class="products__item__detail">
+                <h4 class="products__item__title">{{ item.name }}</h4>
+                <p class="products__item__price">
                 <span>
                   <span class="products__item__yen">&yen; </span>
                   {{ item.price }} x {{ item.count }}
                 </span>
-                <span class="products__item__total">
+                  <span class="products__item__total">
                     <span class="products__item__yen">&yen; </span>
                     {{ (item.price * item.count).toFixed(2) }}
                   </span>
-              </p>
+                </p>
+              </div>
             </div>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
     </div>
     <div class="order">
@@ -141,30 +143,31 @@ export default {
 }
 
 .products{
-  margin: .18rem;
+  margin: 0 .18rem;
   background: #FFF;
   padding: .16rem;
-  &__list {
+  &__wrapper {
     overflow-y: scroll;
-    margin: 0 .18rem;
+    margin: 0 0.18rem;
     position: absolute;
     left: 0;
     right: 0;
-    bottom: .6rem;
-    top: 2.6rem;
+    bottom: 0.6rem;
+    top: 2.49rem;
+  }
+  &__list {
+    background: #FFF;
+    padding: 0 .16rem;
   }
   &__title {
     font-size: .16rem;
     color: #333;
     line-height: .22rem;
   }
-  &__list {
-
-  }
   &__item {
     position: relative;
     display: flex;
-    margin: .16rem 0;
+    padding-bottom: .16rem;
     &__img {
       width: .46rem;
       height: .46rem;
