@@ -2,11 +2,13 @@
   <div class="docker">
     <div
       v-for="(item, index) in dockerList"
-      :class="{'docker__item': true, 'docker__item--active': index === 0}"
+      :class="{'docker__item': true, 'docker__item--active': index === currentIndex}"
       :key="item.icon"
     >
-      <div class="iconfont" v-html="item.icon" />
-      <div class="docker__title">{{item.text}}</div>
+      <router-link :to="item.to">
+        <div class="iconfont" v-html="item.icon" />
+        <div class="docker__title">{{item.text}}</div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -14,12 +16,13 @@
 <script>
 export default {
   name: 'Docker',
+  props: ['currentIndex'],
   setup () {
     const dockerList = [
-      { icon: '&#xe6f3;', text: '首页' },
-      { icon: '&#xe7e5;', text: '购物车' },
-      { icon: '&#xe61e;', text: '订单' },
-      { icon: '&#xe660;', text: '我的' }
+      { icon: '&#xe6f3;', text: '首页', to: { name: 'Home' } },
+      { icon: '&#xe7e5;', text: '购物车', to: { name: 'Home' } },
+      { icon: '&#xe61e;', text: '订单', to: { name: 'OrderList' } },
+      { icon: '&#xe660;', text: '我的', to: { name: 'Home' } }
     ]
     return { dockerList }
   }
@@ -27,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../style/viriables";
+@import "../style/viriables";
 
 .docker {
   display: flex;
@@ -43,12 +46,18 @@ export default {
   &__item {
     flex: 1;
     text-align: center;
+    a {
+      text-decoration: none;
+      color: $content-fontcolor;
+    }
     .iconfont {
       font-size: .18rem;
       margin: .07rem 0 .02rem 0;
     }
     &--active {
-      color: #1FA4FC;
+      a {
+        color: #1FA4FC;
+      }
     }
   }
 

@@ -3,11 +3,11 @@
     <StaticPart />
     <Nearby />
   </div>
-  <Docker />
+  <Docker :currentIndex="0"/>
 </template>
 
 <script>
-import Docker from './Docker'
+import Docker from '../../components/Docker'
 import StaticPart from './StaticPart'
 import Nearby from './Nearby'
 

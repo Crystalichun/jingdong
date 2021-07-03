@@ -1,0 +1,109 @@
+<template>
+  <div class="wrapper">
+    <div class="title">
+      我的订单
+    </div>
+    <div class="orders">
+      <div class="order">
+        <div class="order__title">
+          沃尔玛
+          <span class="order__status">已取消</span>
+        </div>
+        <div class="order__content">
+          <div class="order__content__imgs">
+            <img class="order__content__img"
+                 src="https://pic.qqtn.com/up/2019-9/15690311636958128.jpg"/>
+            <img class="order__content__img"
+                 src="https://pic.qqtn.com/up/2019-9/15690311636958128.jpg"/>
+            <img class="order__content__img"
+                 src="https://pic.qqtn.com/up/2019-9/15690311636958128.jpg"/>
+            <img class="order__content__img"
+                 src="https://pic.qqtn.com/up/2019-9/15690311636958128.jpg"/>
+          </div>
+          <div class="order__content__info">
+            <div class="order__content__price">¥ 11</div>
+            <div class="order__content__count">共 5 件</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <Docker :currentIndex="2"/>
+</template>
+
+<script>
+import Docker from '../../components/Docker'
+
+export default {
+  name: 'OrderList',
+  components: { Docker }
+}
+</script>
+
+<style lang="scss" scoped>
+.wrapper {
+  overflow-y: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: .5rem;
+  right: 0;
+  background: #ECECEC;
+}
+.title {
+  height: .44rem;
+  line-height: .44rem;
+  width: 100%;
+  background: #fff;
+  font-size: .16rem;
+  color: #333333;
+  text-align: center;
+}
+.orders {
+  padding: .16rem .18rem 0 .18rem;
+}
+.order {
+  background: #fff;
+  height: 1.11rem;
+  padding: .16rem;
+  box-sizing: border-box;
+  &__title {
+    font-size: .16rem;
+    color: #333333;
+    line-height: .22rem;
+    margin-bottom: .16rem;
+  }
+  &__status {
+    font-size: .14rem;
+    color: #999999;
+    float: right;
+  }
+  &__content {
+    display: flex;
+    &__imgs {
+      flex: 1;
+    }
+    &__img {
+      width: .4rem;
+      height: .4rem;
+      margin-right: .12rem;
+    }
+    &__info {
+      width: .7rem;
+    }
+    &__price {
+      font-size: .14rem;
+      color: #E93B3B;
+      text-align: right;
+      line-height: .2rem;
+      margin-bottom: .04rem;
+    }
+    &__count {
+      font-size: .12rem;
+      color: #333333;
+      text-align: right;
+      line-height: .14rem;
+    }
+  }
+}
+</style>
