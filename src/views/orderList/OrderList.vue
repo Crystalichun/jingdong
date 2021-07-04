@@ -4,25 +4,31 @@
       我的订单
     </div>
     <div class="orders">
-      <div class="order">
+      <div class="order"
+           v-for="(item, index) in list"
+           :key="index"
+      >
         <div class="order__title">
-          沃尔玛
-          <span class="order__status">已取消</span>
+          {{item.shopName}}
+          <span class="order__status">
+            {{item.isCanceled ? '已取消' : '已完成'}}
+          </span>
         </div>
         <div class="order__content">
-          <div class="order__content__imgs">
-            <img class="order__content__img"
-                 src="https://pic.qqtn.com/up/2019-9/15690311636958128.jpg"/>
-            <img class="order__content__img"
-                 src="https://pic.qqtn.com/up/2019-9/15690311636958128.jpg"/>
-            <img class="order__content__img"
-                 src="https://pic.qqtn.com/up/2019-9/15690311636958128.jpg"/>
-            <img class="order__content__img"
-                 src="https://pic.qqtn.com/up/2019-9/15690311636958128.jpg"/>
-          </div>
+            <div class="order__content__imgs">
+              <template
+                v-for="(innerItem, innerIndex) in item.products"
+                :key="innerIndex"
+              >
+              <img class="order__content__img"
+                   :src="innerItem.product.img"
+                   v-if="innerIndex <= 3"
+              />
+              </template>
+            </div>
           <div class="order__content__info">
-            <div class="order__content__price">¥ 11</div>
-            <div class="order__content__count">共 5 件</div>
+            <div class="order__content__price">¥ {{item.totalPrice}}</div>
+            <div class="order__content__count">共 {{item.totalNumber}} 件</div>
           </div>
         </div>
       </div>
@@ -33,10 +39,39 @@
 
 <script>
 import Docker from '../../components/Docker'
+import { get } from '@/utils/request'
+import { reactive, toRefs } from 'vue'
 
+const useOrderListEffect = () => {
+  const data = reactive({ list: [] })
+  const getOrderList = async () => {
+    const result = await get('/api/order')
+    if (result?.errno === 0 && result?.data?.length) {
+      result.data.forEach((order) => {
+        const products = order.products || []
+        let totalNumber = 0
+        let totalPrice = 0
+        products.forEach((productItem) => {
+          totalNumber += (productItem?.orderSales || 0)
+          totalPrice += ((productItem?.product?.price * productItem?.orderSales) || 0)
+        })
+        order.totalNumber = totalNumber
+        order.totalPrice = totalPrice
+      })
+      data.list = result.data
+    }
+  }
+  getOrderList()
+  const { list } = toRefs(data)
+  return { list }
+}
 export default {
   name: 'OrderList',
-  components: { Docker }
+  components: { Docker },
+  setup () {
+    const { list } = useOrderListEffect()
+    return { list }
+  }
 }
 </script>
 
