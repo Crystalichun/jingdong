@@ -76,6 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../style/viriables";
 .wrapper {
   overflow-y: auto;
   position: absolute;
@@ -89,28 +90,28 @@ export default {
   height: .44rem;
   line-height: .44rem;
   width: 100%;
-  background: #fff;
+  background: $bgColor;
   font-size: .16rem;
-  color: #333333;
+  color: $content-fontcolor;
   text-align: center;
 }
 .orders {
   padding: .16rem .18rem 0 .18rem;
 }
 .order {
-  background: #fff;
+  background: $bgColor;
   height: 1.11rem;
   padding: .16rem;
   box-sizing: border-box;
   &__title {
     font-size: .16rem;
-    color: #333333;
+    color: $content-fontcolor;
     line-height: .22rem;
     margin-bottom: .16rem;
   }
   &__status {
     font-size: .14rem;
-    color: #999999;
+    color: $light-fontColor;
     float: right;
   }
   &__content {
@@ -128,14 +129,14 @@ export default {
     }
     &__price {
       font-size: .14rem;
-      color: #E93B3B;
+      color: $highlight-fontColor;
       text-align: right;
       line-height: .2rem;
       margin-bottom: .04rem;
     }
     &__count {
       font-size: .12rem;
-      color: #333333;
+      color: $content-fontcolor;
       text-align: right;
       line-height: .14rem;
     }

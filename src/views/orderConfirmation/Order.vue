@@ -156,9 +156,9 @@ export default {
       flex: 1;
       width: .8rem;
       height: .32rem;
-      border: 1px solid #4FB0F9;
-      border-radius: 16px;
-      font-size: 14px;
+      border: .01rem solid #4FB0F9;
+      border-radius: .16rem;
+      font-size: .14rem;
       padding: .06rem .12rem;
       &--first {
         background: #fff;

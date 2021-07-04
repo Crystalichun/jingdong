@@ -216,7 +216,7 @@ export default {
     display: flex;
     line-height: .52rem;
     height: .52rem;
-    border-bottom: 1px solid $content-bgColor;
+    border-bottom: .01rem solid $content-bgColor;
     font-size: .14rem;
     color: $content-fontcolor;
     &__all {
