@@ -21,7 +21,6 @@ const setLocalCartList = (state) => {
 
 const getLocalCartList = () => {
   try {
-    console.log(localStorage.cartList)
     return JSON.parse(localStorage.cartList)
   } catch (e) {
     return {}

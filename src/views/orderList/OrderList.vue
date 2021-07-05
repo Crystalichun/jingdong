@@ -1,8 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="title">
-      我的订单
-    </div>
+    <Title :title-content="'我的订单'"/>
     <div class="orders">
       <div class="order"
            v-for="(item, index) in list"
@@ -39,6 +37,7 @@
 
 <script>
 import Docker from '../../components/Docker'
+import Title from '../../components/Title'
 import { get } from '@/utils/request'
 import { reactive, toRefs } from 'vue'
 
@@ -67,7 +66,7 @@ const useOrderListEffect = () => {
 }
 export default {
   name: 'OrderList',
-  components: { Docker },
+  components: { Docker, Title },
   setup () {
     const { list } = useOrderListEffect()
     return { list }
@@ -77,23 +76,9 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../style/viriables";
+@import "../../style/mixins";
 .wrapper {
-  overflow-y: auto;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: .5rem;
-  right: 0;
-  background: #ECECEC;
-}
-.title {
-  height: .44rem;
-  line-height: .44rem;
-  width: 100%;
-  background: $bgColor;
-  font-size: .16rem;
-  color: $content-fontcolor;
-  text-align: center;
+  @include wrapper
 }
 .orders {
   padding: .16rem .18rem 0 .18rem;

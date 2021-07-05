@@ -1,30 +1,34 @@
 <template>
   <div class="wrapper">
     <TopArea/>
-    <ProductList/>
+    <ProductList :shopId="shopId"/>
     <Order/>
   </div>
 </template>
 
 <script>
 import TopArea from './TopArea'
-import ProductList from './ProductList'
+import ProductList from '../../components/ProductList'
 import Order from './Order'
+import { useRoute } from 'vue-router'
 
 export default {
   name: 'OrderConfirmation',
-  components: { ProductList, TopArea, Order }
+  components: { ProductList, TopArea, Order },
+  setup () {
+    const route = useRoute()
+    const shopId = route.params.id
+    return { shopId }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "../../style/mixins";
 .wrapper {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
+  @include wrapper;
   bottom: 0;
-  background-color: #eee;
+  background: #eee;
   overflow-y: scroll;
 }
 </style>

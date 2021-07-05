@@ -31,23 +31,22 @@
 </template>
 
 <script>
-import { useRoute } from 'vue-router'
 import { useCommonCartEffect } from '@/effects/commonCartEffect'
 
 export default {
   name: 'ProductList',
-  setup () {
-    const route = useRoute()
-    const shopId = route.params.id
-    const { shopName, productList } = useCommonCartEffect(shopId)
+  props: ['shopId'],
+  setup (props) {
+    console.log(props)
+    const { shopName, productList } = useCommonCartEffect(props.shopId)
     return { shopName, productList }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../../style/viriables.scss';
-@import '../../style/mixins.scss';
+@import '../style/viriables';
+@import '../style/mixins';
 .products{
   margin: 0 .18rem;
   background: $bgColor;
