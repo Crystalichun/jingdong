@@ -3,7 +3,7 @@
     <div class="products__title">
       {{ shopName }}
     </div>
-    <div class="products__wrapper">
+    <div :class="{'products__wrapper' : showWrapper}">
       <div class="products__list">
         <div
           v-for="item in productList"
@@ -35,9 +35,8 @@ import { useCommonCartEffect } from '@/effects/commonCartEffect'
 
 export default {
   name: 'ProductList',
-  props: ['shopId'],
+  props: ['shopId', 'showWrapper'],
   setup (props) {
-    console.log(props)
     const { shopName, productList } = useCommonCartEffect(props.shopId)
     return { shopName, productList }
   }
