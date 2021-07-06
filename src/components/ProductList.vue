@@ -1,10 +1,10 @@
 <template>
   <div class="products">
-    <div class="products__title">
+    <div :class="{'products__title' : true, 'products__title__margin' : titleMargin}">
       {{ shopName }}
     </div>
     <div :class="{'products__wrapper' : showWrapper}">
-      <div class="products__list">
+      <div :class="{'products__list': true , 'products__list__padding': noPadding}">
         <div
           v-for="item in productList"
           :key="item._id"
@@ -35,7 +35,7 @@ import { useCommonCartEffect } from '@/effects/commonCartEffect'
 
 export default {
   name: 'ProductList',
-  props: ['shopId', 'showWrapper'],
+  props: ['shopId', 'showWrapper', 'noPadding', 'titleMargin'],
   setup (props) {
     const { shopName, productList } = useCommonCartEffect(props.shopId)
     return { shopName, productList }
@@ -62,11 +62,17 @@ export default {
   &__list {
     background: $bgColor;
     padding: 0 .16rem;
+    &__padding {
+      padding: 0;
+    }
   }
   &__title {
     font-size: .16rem;
     color: $content-fontcolor;
     line-height: .22rem;
+    &__margin {
+      margin-bottom: .16rem;
+    }
   }
   &__item {
     position: relative;
