@@ -1,10 +1,10 @@
 ###jingdong
 This is a personal practice project by Vue3.
 
-####Home page
+#### Home page
 ![jingdong](./src/assets/jingdong.png)
 
-####Project setup
+#### Project setup
 ```
 npm install
 ```
