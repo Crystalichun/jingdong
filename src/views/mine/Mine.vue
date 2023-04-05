@@ -143,8 +143,10 @@ export default {
       display: flex;
       padding: .12rem 0 .16rem 0;
       &__item {
-        width: 33%;
+        flex: 1;
         text-align: center;
+        //width: 33%;
+        //text-align: center;
       }
       &__name {
         font-size: .12rem;
